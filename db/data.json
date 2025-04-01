@@ -1,9 +1,76 @@
 {
-    "data": [
-        {
-            "id": 1,
-            "firstName": "Jan",
-            "lastName": "Kowalski"
-        }
-    ]
+  "tasks": [
+    {
+      "id": 1,
+      "name": "Przykładowe zadanie",
+      "time": 0,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true
+    },
+    {
+      "name": "Task 22",
+      "time": 0,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 2
+    },
+    {
+      "name": "Task 34",
+      "time": 0,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 3
+    },
+    {
+      "name": "DOdawanie czegokolwiek",
+      "time": 0,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 4
+    },
+    {
+      "name": "TASK 100",
+      "time": 8,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 5
+    },
+    {
+      "name": "TASK 01",
+      "time": 6,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 6
+    },
+    {
+      "name": "Zadanie do zrobienia",
+      "time": 8,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 7
+    },
+    {
+      "name": "Zaqdanie do zrobienia 2",
+      "time": 9,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 8
+    },
+    {
+      "name": "Zadanie do zrobienia",
+      "time": 1,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true,
+      "id": 9
+    }
+  ]
 }
