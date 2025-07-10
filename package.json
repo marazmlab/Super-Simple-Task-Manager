@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://github.com/marazmlab/Super-Simple-Task-Manager",
+  "homepage": "https://marazmlab.github.io/Super-Simple-Task-Manager",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development --open",
