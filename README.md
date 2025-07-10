@@ -1,167 +1,113 @@
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+![React Task Manager](./assets/img/task-manager-screenshot.jpg)
+
+# Super Simple Task Manager
+
+A (super) simple task manager app built with React, featuring a Node.js/Express backend (hosted on Render.com) and a frontend hosted on GitHub Pages.
+
+## 🚀 Live Demo
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen?style=for-the-badge&logo=github)](https://marazmlab.github.io/Super-Simple-Task-Manager/)
 
 &nbsp;
 
+**Main features:**
+- Add, edit, delete, and track time for tasks
+- Data stored on a backend (Node.js/Express on Render.com)
+- Clean, user-friendly interface
+- Live synchronization with backend
+- Option to run locally with json-server
+- Responsive and modern UI
 
-# TasksManager
+&nbsp;
 
-## Wprowadzenie
+## 🔶 Technologies
 
-Tym razem stworzymy jeden komponent, który będzie zarządzał naszymi zadaniami.
+![React](https://img.shields.io/badge/react-%2361DAFB.svg?style=for-the-badge&logo=react&logoColor=black)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
+![Babel](https://img.shields.io/badge/babel-%23F9DC3E.svg?style=for-the-badge&logo=babel&logoColor=black)
+![GitHub Pages](https://img.shields.io/badge/github%20pages-%23181717.svg?style=for-the-badge&logo=github&logoColor=white)
+![Node.js](https://img.shields.io/badge/node.js-%23339933.svg?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/express-%23404d59.svg?style=for-the-badge&logo=express&logoColor=white)
 
-Będzie to rozwiązanie, które pozwoli tworzyć zadania i liczyć czas ich wykonania.
+&nbsp;
 
-## Implementacja
+## 🔶 Quick Start
 
-### Dodawanie zadań
+### 1. Run locally (full CRUD)
 
-Należy stworzyć formularz, który pozwoli na dodawanie nowych zadań. Ma to być komponent kontrolowany – do pól formularza muszą być przypisane wartości ze state (`<input name="task" value={ this.state.task } onChange={ ... } />`) i obsługa zdarzenia `onChange`.
+```bash
+git clone https://github.com/marazmlab/Super-Simple-Task-Manager.git
+cd Super-Simple-Task-Manager
+npm install
+npm run json-server   # starts local backend on port 3001
+npm start            # starts frontend on localhost
+```
 
-Potwierdzenie formularza (`onSubmit`) ma skutkować wysłaniem zadania do lokalnego API stworzonego przy pomocy [json-servera](https://github.com/typicode/json-server). Po dodaniu zadania otrzymujemy odpowiedź od serwera – jest to ID nowo utworzonego elementu.
+### 2. Online Demo
 
-Dopiero teraz możemy dodać to zadanie do naszej listy (`this.state.tasks`). Pamiętaj, aby za każdym razem, kiedy dodajesz nowy element, tworzyć kopię poprzedniej tablicy:
-```js
-const newItem = {
-    name: 'Zadanie 1',
-    // ... 
-};
+Frontend: [GitHub Pages](https://marazmlab.github.io/Super-Simple-Task-Manager/)
+Backend: [Render.com API](https://super-simple-task-manager-backend.onrender.com/tasks)
 
-this.setState(state => {
-    return {
-        tasks: [...state.tasks, newItem],
+### 3. Deploy to GitHub Pages
+
+```bash
+npm run deploy
+```
+
+&nbsp;
+
+## 🔶 Solutions provided in the project
+
+### Example: Fetching data while mounting component:
+
+```jsx
+// In TasksManager.js
+componentDidMount() {
+        fetch('https://super-simple-task-manager-backend.onrender.com/tasks')
+            .then((response) => response.json())
+            .then((tasks) => this.setState({tasks}));
+        
+        this.interval = setInterval(() => {
+            this.setState((state) => {
+                const updatedTasks = state.tasks.map((task) => {
+                    if (task.isRunning) {
+                        return {...task, time: task.time + 1};
+                    }
+                    return task;
+                });
+                return {tasks: updatedTasks};
+            });
+        }, 1000);
     }
-});
 ```
-### Dane pojedynczego zadania
-
-Każde z zadań powinno posiadać:
-- nazwę (`name`)
-- ID (`id`), które jest zwracane przez API
-- czas jego wykonywania w sekundach (`time`)
-- informację, czy czas jest odliczany w danym momencie (`isRunning`)
-- czy zadanie zostało już wykonane (`isDone`)
-- czy zostało usunięte (`isRemoved`).
-
-### Funkcjonalności
-
-W każdym zadaniu powinniśmy mieć możliwość:
-- rozpoczęcia odliczania
-- zatrzymania odliczania, jeśli zostało wcześniej rozpoczęte
-- zakończenia zadania, co spowoduje przeniesienie go na koniec listy (można wykorzystać [.sort()](https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Array/sort))
-- usunięcia z listy, co spowoduje, że zadanie nie zostanie wyrenderowane, ale będzie cały czas przechowywane w state (można wykorzystać [.filter()](https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Array/filter)).
-
-Uznajemy, że w jednym momencie możemy wykonywać jedno zadanie.
-
-Wciśnięcie przycisku `zakończone` powinno jednocześnie zatrzymywać naliczanie czasu.
-
-Usunięcie zadania ma być możliwe dopiero po jego zakończeniu (uznajemy, że nie ma omyłkowo dodanych zadań).
-
-Każda zmiana danych zadania (odliczanie, wstrzymanie, zakończenie itp.) powinna być zapisywana w API.
-
-Pamiętaj również, że zmiana w `state` musi odbywać się przez utworzenie kopii obiektu i dopiero potem jego aktualizację, np.
-
-```js
-incrementTime(id) {
-    this.setState(state => {
-        const newTasks = state.tasks.map(task => {
-            if(task.id === id) {
-                return {...task, time: task.time + 1}
-            }
-
-            return task;
-        });
-
-        return {
-            tasks: newTasks,
-        }
-    });
-}
-```
-
-Każde zadanie powinno mieć strukturę zbliżoną do tej poniżej. Pamiętaj, że część przycisków musi się zachowywać zgodnie z obecnym stanem aplikacji (np. w pewnym momencie być nieaktywna).
-```html
-<section>
-    <header>Zadanie 1, 00:00:00</header>
-    <footer>
-        <button>start/stop</button>
-        <button>zakończone</button>
-        <button disabled="true">usuń</button>
-    </footer>
-</section>
-```
-
-Powyższa struktura powinna być generowana na podstawie danych z wartości `this.state.tasks` oraz przy pomocy [.map()](https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Array/map).
-
-### Uwaga
-
-Na razie nie dziel swojego komponentu na mniejsze części, ponieważ niepotrzebnie skomplikuje to implementację.
-
-W następnym materiale poznasz techniki, które Ci w takim podziale pomogą i pozwolą odpowiednio przekazywać dane pomiędzy komponentami. 
-
-### CSS
-
-Do konfiguracji webpacka (w pliku `webpack.config.js`) dodano obsługę plików CSS, dlatego możesz odpowiednio ostylować swoje rozwiązanie, wykorzystując klasy i metodologię [BEM](https://devmentor.pl/b/metodologia-bem-w-css-i-sass).
-
-Zauważ, że w `./src/app.js` importowany jest plik CSS. Dzięki temu rozwiązaniu webpack pobierze zawartość tego pliku i do `index.html` doda CSS jako znacznik `<style/>` w `<head/>`.
-
-#### Dodatkowe zasoby w CSS-ie
-
-Aby webpack odpowiednio czytał zdjęcia lub fonty w CSS-ie, należy zmodyfikować konfigurację.
-
-Możesz to uznać za zadanie dodatkowe lub poczekać na omówienie tego tematu w kolejnych materiałach.
-
-### JSON Server – przypomnienie
-
-Paczka `json-server` powinna być zainstalowana globalnie, dlatego warto mieć uprawnienia administratora (sudo na Linuksie), aby móc to zrobić.
-
-W terminalu wpisz komendę:
-
-```
-npm install -g json-server@0.17
-```
-
-Po instalacji powinieneś mieć dostęp do informacji o zainstalowanej wersji:
-
-```
-json-server -v
-```
-
-Teraz w katalogu głównym naszej aplikacji utwórz katalog `db`, a w nim plik `data.json` i wrzuć do niego testowe dane, np.:
-
-```javascript
-{
-    "data": [
-        {
-            "id": 1,
-            "firstName": "Jan",
-            "lastName": "Kowalski"
-        }
-    ]
-}
-```
-
-Jeśli masz już uruchomionego webpacka (`npm start`), to w kolejnym terminalu (wierszu poleceń) uruchom API:
-
-```
-json-server --watch ./db/data.json --port 3005
-```
-
-Ustawiamy inny port niż domyślny (3000), aby być pewnym, że nic go nie blokuje.
-
-Od teraz możesz korzystać z API pod adresem:
-
-```
-http://localhost:3005/data
-```
-
-> **Uwaga!** Jeśli API ma działać, json-server zawsze musi być uruchomiony. 
-
-
+This example showcases:
+- **Controlled form:** The input field is controlled by React state for reliable data flow.
+- **Task creation:** Submitting the form adds a new task to the list and backend.
+- **Time tracking:** Each task can be started/paused, updating its timer in real time.
+- **Task deletion:** Tasks can be removed from the list and backend with a single click.
+- **Live sync:** All changes are immediately reflected in the UI and persisted via API calls.
 
 &nbsp;
 
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+## 🔶 Conclusions
+
+- **State management:** Uses React class components and state for predictable UI updates.
+- **API integration:** All CRUD operations are performed via REST API (local json-server or remote Express backend).
+- **Component structure:** The project demonstrates modular, reusable React components.
+- **Styling:** Modern, responsive CSS for a clean look.
+- **Persistence:** Tasks are always up-to-date thanks to backend synchronization.
+- **Deployment:** The app is easy to run locally and share as a live demo via GitHub Pages and Render.com.
+
+&nbsp;
+
+## 🔶 Feel free to contact me
+
+If you have any questions or feedback, feel free to reach out!  
+Find me on [GitHub](https://github.com/marazmlab) or [LinkedIn](https://www.linkedin.com/in/belz/).
+
+&nbsp;
+
+## 🔶 Thanks / Special thanks / Credits
+
+Thanks to my [Mentor - devmentor.pl](https://devmentor.pl/) – for providing me with this task and for code review.
