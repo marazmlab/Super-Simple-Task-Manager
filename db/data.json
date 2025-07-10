@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Przykładowe zadanie",
       "time": 0,
       "isRunning": false,
@@ -14,7 +14,7 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 2
+      "id": "2"
     },
     {
       "name": "Task 34",
@@ -22,7 +22,7 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 3
+      "id": "3"
     },
     {
       "name": "DOdawanie czegokolwiek",
@@ -30,7 +30,7 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 4
+      "id": "4"
     },
     {
       "name": "TASK 100",
@@ -38,7 +38,7 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 5
+      "id": "5"
     },
     {
       "name": "TASK 01",
@@ -46,7 +46,7 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 6
+      "id": "6"
     },
     {
       "name": "Zadanie do zrobienia",
@@ -54,7 +54,7 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 7
+      "id": "7"
     },
     {
       "name": "Zaqdanie do zrobienia 2",
@@ -62,7 +62,7 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 8
+      "id": "8"
     },
     {
       "name": "Zadanie do zrobienia",
@@ -70,7 +70,15 @@
       "isRunning": false,
       "isDone": true,
       "isRemoved": true,
-      "id": 9
+      "id": "9"
+    },
+    {
+      "id": "2392",
+      "name": "add task",
+      "time": 3,
+      "isRunning": false,
+      "isDone": true,
+      "isRemoved": true
     }
   ]
 }

@@ -7,7 +7,7 @@ class TasksManager extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3005/tasks')
+        fetch('http://localhost:3001/tasks')
             .then((response) => response.json())
             .then((tasks) => this.setState({tasks}));
         
@@ -24,13 +24,6 @@ class TasksManager extends React.Component {
         }, 1000);
     }
     
-    // Chciałem na początku ustawić updatowanie data.json w poszczególnych metodach 
-    // obsługujących startowanie/stopowanie/usuwanie tasków. 
-    // mam nadzieję, że to rozwiązanie jest lepsze, bo narzeźbiłem się przy nim 
-    // więcej niż przy czymkolwiek innym w tym tasku :p
-
-    // nie wiem, czemu przy usunięciu argumentu prevProps wszystko się wywala,  
-    // dlatego go zostawiam
 
     componentDidUpdate(prevProps, prevState) {
         this.state.tasks.forEach((task) => {
@@ -44,7 +37,7 @@ class TasksManager extends React.Component {
                     prevTask.time !== task.time
                 )
             ) {
-                fetch(`http://localhost:3005/tasks/${task.id}`, {
+                fetch(`http://localhost:3001/tasks/${task.id}`, {
                     method: 'PATCH',
                     headers: { 'Content-type': 'application/json' },
                     body: JSON.stringify({
@@ -82,7 +75,7 @@ class TasksManager extends React.Component {
             isRemoved: false,
         };
 
-        const response = await fetch('http://localhost:3005/tasks', {
+        const response = await fetch('http://localhost:3001/tasks', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify(newTask),
