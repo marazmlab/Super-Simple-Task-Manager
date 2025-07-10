@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "git@github.com:marazmlab/Super-Simple-Task-Manager.git",
+  "homepage": "https://github.com/marazmlab/Super-Simple-Task-Manager",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development --open",
     "build": "webpack --mode production",
-    "json-server": "json-server --watch db/data.json --port 3001"
+    "json-server": "json-server --watch db/data.json --port 3001",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
