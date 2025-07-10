@@ -7,7 +7,7 @@ class TasksManager extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/tasks')
+        fetch('https://super-simple-task-manager-backend.onrender.com/tasks')
             .then((response) => response.json())
             .then((tasks) => this.setState({tasks}));
         
@@ -37,7 +37,7 @@ class TasksManager extends React.Component {
                     prevTask.time !== task.time
                 )
             ) {
-                fetch(`http://localhost:3001/tasks/${task.id}`, {
+                fetch(`https://super-simple-task-manager-backend.onrender.com/tasks/${task.id}`, {
                     method: 'PATCH',
                     headers: { 'Content-type': 'application/json' },
                     body: JSON.stringify({
@@ -75,7 +75,7 @@ class TasksManager extends React.Component {
             isRemoved: false,
         };
 
-        const response = await fetch('http://localhost:3001/tasks', {
+        const response = await fetch('https://super-simple-task-manager-backend.onrender.com/tasks', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify(newTask),
